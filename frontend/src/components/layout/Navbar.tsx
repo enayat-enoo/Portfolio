@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function Navbar() {
-  const [activeTab, setActiveTab] = useState("Projects");
+  const [activeTab, setActiveTab] = useState("Home");
   const tabs = ["Home", "Projects", "About"];
   return (
     <div className="flex justify-center items-center w-full bg-[#87CEEB] p-2">

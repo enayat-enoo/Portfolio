@@ -28,10 +28,10 @@ const Footer: React.FC = () => {
         <div className="w-full md:w-[420px] bg-white rounded-[32px] p-10 flex flex-col items-center shadow-2xl">
           <div className="flex gap-4 mb-10">
             {/* Icons using the DimGray aesthetic */}
-            <SocialIcon icon={<Mail size={24} />} href="mailto:your-email@example.com" />
-            <SocialIcon icon={<Linkedin size={24} />} href="#" />
-            <SocialIcon icon={<Github size={24} />} href="#" />
-            <SocialIcon icon={<FileText size={24} />} href="#" />
+            <SocialIcon icon={<Mail size={24} />} href="mailto:enayatansari33@gmail.com" />
+            <SocialIcon icon={<Linkedin size={24} />} href="https://www.linkedin.com/in/md-enayat-ansari-856667228?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" />
+            <SocialIcon icon={<Github size={24} />} href="https://github.com/enayat-enoo" />
+            <SocialIcon icon={<FileText size={24} />} href="https://drive.google.com/file/d/1QpZwDK8DIRxXifhLOzkk0ZW_R62jV_No/view?usp=drive_link" />
           </div>
           
           <div className="text-center space-y-2 border-t border-slate-100 pt-8 w-full">
