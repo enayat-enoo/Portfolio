@@ -1,7 +1,9 @@
 import React from 'react';
 import { Mail, Linkedin, Github, FileText, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Footer: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <footer className="w-full py-16 px-4 md:px-10 flex justify-center">
       <div className="w-full max-w-6xl bg-white/20 backdrop-blur-xl border border-white/30 rounded-[40px] p-8 md:p-14 flex flex-col md:flex-row items-center gap-12 overflow-hidden shadow-xl">
@@ -16,10 +18,12 @@ const Footer: React.FC = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <button className="flex items-center justify-center gap-2 bg-[#10B981] text-white px-8 py-4 rounded-2xl hover:bg-[#059669] transition-all transform hover:scale-105 font-semibold">
-              <Mail size={20} /> Contact
+              <Mail size={20} 
+              href="mailto:enayatansari33@gmail.com"/> Contact
             </button>
             
-            <button className="flex items-center justify-center gap-2 bg-white/80 text-slate-800 px-8 py-4 rounded-2xl hover:bg-white transition-all shadow-sm font-semibold">
+            <button className="flex items-center justify-center gap-2 bg-white/80 text-slate-800 px-8 py-4 rounded-2xl hover:bg-white transition-all shadow-sm font-semibold"
+              onClick={() => navigate("/projects")}>
               See Projects <ArrowRight size={20} />
             </button>
           </div>
@@ -27,7 +31,6 @@ const Footer: React.FC = () => {
 
         <div className="w-full md:w-[420px] bg-white rounded-[32px] p-10 flex flex-col items-center shadow-2xl">
           <div className="flex gap-4 mb-10">
-            {/* Icons using the DimGray aesthetic */}
             <SocialIcon icon={<Mail size={24} />} href="mailto:enayatansari33@gmail.com" />
             <SocialIcon icon={<Linkedin size={24} />} href="https://www.linkedin.com/in/md-enayat-ansari-856667228?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" />
             <SocialIcon icon={<Github size={24} />} href="https://github.com/enayat-enoo" />
@@ -47,8 +50,6 @@ const Footer: React.FC = () => {
     </footer>
   );
 };
-
-// Reusable Social Icon Component
 const SocialIcon: React.FC<{ icon: React.ReactNode; href: string }> = ({ icon, href }) => (
   <a 
     href={href}

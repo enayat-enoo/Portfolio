@@ -1,11 +1,12 @@
 import { ArrowRight, BookOpen, Cpu, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <div className="bg-[#87CEEB] min-h-screen text-[#333333] selection:bg-white/30 transition-colors duration-500">
 
       <main className="max-w-5xl mx-auto pt-44 pb-20 px-6 space-y-32">
-        {/* 2. Hero Content - Personalized Introduction */}
         <section className="flex flex-col md:flex-row justify-between items-start gap-12">
           <div className="text-left space-y-8">
             {/* Greeting and Name Line */}
@@ -18,7 +19,6 @@ function Home() {
               </h1>
             </div>
 
-            {/* The 1-2 Liner Narrative */}
             <div className="space-y-1">
               <p className="text-2xl md:text-3xl text-[#454545] font-light leading-tight">
                 Engineering scalable systems with logic and
@@ -28,12 +28,13 @@ function Home() {
               </p>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex gap-4 pt-6">
-              <button className="bg-[#10B981] text-white px-8 py-3 rounded-2xl font-semibold shadow-lg hover:bg-[#059669] transition-all transform hover:-translate-y-1">
+              <button className="bg-[#10B981] text-white px-8 py-3 rounded-2xl font-semibold shadow-lg hover:bg-[#059669] transition-all transform hover:-translate-y-1"
+              >
                 Contact
               </button>
-              <button className="bg-white/80 backdrop-blur-md px-8 py-3 rounded-2xl font-semibold shadow-sm hover:bg-white border border-white/40 transition-all flex items-center gap-2">
+              <button className="bg-white/80 backdrop-blur-md px-8 py-3 rounded-2xl font-semibold shadow-sm hover:bg-white border border-white/40 transition-all flex items-center gap-2"
+                onClick={() => navigate('/projects')}>
                 View My Work <ArrowRight size={18} />
               </button>
             </div>
