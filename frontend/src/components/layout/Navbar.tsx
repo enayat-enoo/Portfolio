@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [activeTab, setActiveTab] = useState("Home");
@@ -7,7 +8,7 @@ function Navbar() {
     <div className="flex justify-center items-center w-full bg-[#87CEEB] p-2">
       <nav className="flex items-center w-full max-w-xs md:max-w-max justify-between p-1.5 bg-[#F5F5F5] rounded-full shadow-sm">
         {tabs.map((tab) => (
-          <button 
+          <button
           key={tab}
           onClick={()=>setActiveTab(tab)}
           className={`
@@ -23,7 +24,7 @@ function Navbar() {
               }
             `}
           >
-            {tab}
+            <Link to={`/${tab.toLowerCase()}`}>{tab}</Link>
             </button>
         ))}
       </nav>

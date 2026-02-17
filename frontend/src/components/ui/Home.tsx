@@ -1,11 +1,8 @@
-import Navbar from "../layout/Navbar";
-import Footer from "../layout/Footer";
 import { ArrowRight, BookOpen, Cpu, Sparkles } from "lucide-react";
 
 function Home() {
   return (
     <div className="bg-[#87CEEB] min-h-screen text-[#333333] selection:bg-white/30 transition-colors duration-500">
-      <Navbar />
 
       <main className="max-w-5xl mx-auto pt-44 pb-20 px-6 space-y-32">
         {/* 2. Hero Content - Personalized Introduction */}
@@ -103,7 +100,6 @@ function Home() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 }
