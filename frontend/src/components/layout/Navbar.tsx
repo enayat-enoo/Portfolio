@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 function Navbar() {
   const [activeTab, setActiveTab] = useState("Home");
   const tabs = ["Home", "Projects", "About"];

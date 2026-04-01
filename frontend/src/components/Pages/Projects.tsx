@@ -1,3 +1,4 @@
+
 import { ArrowUpRight, Github,Cpu, Globe, } from 'lucide-react';
 
 const projectData = [
@@ -7,7 +8,9 @@ const projectData = [
     category: "System Design / Real-time",
     description: "A high-concurrency chat engine optimized for horizontal scaling. Implemented Redis Pub/Sub to manage message broadcasting across multiple Node.js instances, reducing latency in distributed environments.",
     tech: ["MERN", "Socket.io", "Redis", "Docker"],
-    type: "featured"
+    type: "featured",
+    github: "https://github.com/enayat-enoo/Quickchat",
+    link:"https://quick-chat-eight-eta.vercel.app/"
   },
   {
     id: 2,
@@ -15,7 +18,8 @@ const projectData = [
     category: "Backend / Performance",
     description: "Real-time monitoring system with high-frequency data fetching. Optimized database throughput using PostgreSQL indexing and Redis caching layer to handle rapid price fluctuations without bottlenecks.",
     tech: ["Node.js", "TypeScript", "PostgreSQL", "Redis"],
-    type: "featured"
+    type: "featured",
+    github: "https://github.com/enayat-enoo/crypto-price-monitor",
   },
   {
     id: 3,
@@ -23,7 +27,9 @@ const projectData = [
     category: "Full Stack",
     description: "A comprehensive booking platform with a custom availability engine and secure user authentication flow.",
     tech: ["React", "Express", "MongoDB", "Redux"],
-    type: "standard"
+    type: "standard",
+    github: "https://github.com/enayat-enoo/BookIt",
+    link: "https://book-it-beryl.vercel.app/"
   },
   {
     id: 4,
@@ -31,7 +37,8 @@ const projectData = [
     category: "Frontend Architecture",
     description: "Complex e-commerce state management including persistent carts, dynamic filtering, and optimized image rendering.",
     tech: ["React", "Tailwind CSS", "Zustand"],
-    type: "standard"
+    type: "standard",
+    github: "https://github.com/enayat-enoo/E-com-cart",
   }
 ];
 
@@ -78,10 +85,10 @@ function Projects() {
                 </div>
                 <div className="flex gap-4 items-start">
                   <button className="p-4 bg-white/80 rounded-2xl hover:bg-white shadow-sm transition-all">
-                    <Github size={20} />
+                    {(project.github) ? (<a href={project.github} target="_blank" rel="noopener noreferrer"><Github size={20} /></a>) : (<Github size={20} />)}
                   </button>
                   <button className="p-4 bg-black text-white rounded-2xl hover:scale-105 transition-all">
-                    <ArrowUpRight size={20} />
+                    {(project.link) ? (<a href={project.link} target="_blank" rel="noopener noreferrer"><ArrowUpRight size={20} /></a>) : (<ArrowUpRight size={20} />)}
                   </button>
                 </div>
               </div>

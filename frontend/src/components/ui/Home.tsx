@@ -5,11 +5,9 @@ function Home() {
   const navigate = useNavigate();
   return (
     <div className="bg-[#87CEEB] min-h-screen text-[#333333] selection:bg-white/30 transition-colors duration-500">
-
       <main className="max-w-5xl mx-auto pt-44 pb-20 px-6 space-y-32">
         <section className="flex flex-col md:flex-row justify-between items-start gap-12">
           <div className="text-left space-y-8">
-            {/* Greeting and Name Line */}
             <div className="space-y-2">
               <p className="text-xl md:text-2xl text-slate-800 font-medium">
                 Hey! I am <span className="font-bold">Md Enayat Ansari</span>
@@ -29,12 +27,31 @@ function Home() {
             </div>
 
             <div className="flex gap-4 pt-6">
-              <button className="bg-[#10B981] text-white px-8 py-3 rounded-2xl font-semibold shadow-lg hover:bg-[#059669] transition-all transform hover:-translate-y-1"
-              >
-                Contact
+              <button className="group relative flex items-center justify-center overflow-hidden bg-[#10B981] text-white px-8 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-500 ease-in-out hover:bg-[#059669] hover:-translate-y-1">
+                {/* The Icon (Optional, remove if not needed) */}
+                {/* <Phone size={18} className="mr-2 shrink-0" /> */}
+
+                <div className="relative flex flex-col items-center">
+                  {/* 1. Ghost Spacer: Forces the button to expand horizontally on hover */}
+                  <span className="invisible block h-0 max-w-0 overflow-hidden whitespace-nowrap transition-all duration-500 group-hover:max-w-[120px]">
+                    9074932835
+                  </span>
+
+                  {/* 2. Original Text: Slides Up and out */}
+                  <span className="inline-block transition-all duration-500 group-hover:-translate-y-12">
+                    Contact
+                  </span>
+
+                  {/* 3. The Number: Slides Up from below and fades in */}
+                  <span className="absolute top-full whitespace-nowrap opacity-0 transition-all duration-500 group-hover:-translate-y-[2.1rem] group-hover:opacity-100">
+                    9074932835
+                  </span>
+                </div>
               </button>
-              <button className="bg-white/80 backdrop-blur-md px-8 py-3 rounded-2xl font-semibold shadow-sm hover:bg-white border border-white/40 transition-all flex items-center gap-2"
-                onClick={() => navigate('/projects')}>
+              <button
+                className="bg-white/80 backdrop-blur-md px-8 py-3 rounded-2xl font-semibold shadow-sm hover:bg-white border border-white/40 transition-all flex items-center gap-2"
+                onClick={() => navigate("/projects")}
+              >
                 View My Work <ArrowRight size={18} />
               </button>
             </div>
