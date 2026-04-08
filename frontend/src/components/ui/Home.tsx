@@ -1,77 +1,72 @@
 import { useEffect, useRef } from "react";
 
-const S = {
-  section: {
-    padding: '6rem 2.5rem',
-    maxWidth: '1100px',
-    margin: '0 auto',
-  } as React.CSSProperties,
-  sectionHeader: {
-    display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '3.5rem',
-  } as React.CSSProperties,
-  sectionNum: {
-    fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--accent)', letterSpacing: '0.1em',
-  } as React.CSSProperties,
-  sectionTitle: {
-    fontSize: '2.25rem', fontWeight: 700, letterSpacing: '-0.02em',
-  } as React.CSSProperties,
-  sectionLine: {
-    flex: 1, height: '1px', background: 'var(--border)',
-  } as React.CSSProperties,
-  divider: {
-    height: '1px', background: 'var(--border)', maxWidth: '1100px', margin: '0 auto',
-  } as React.CSSProperties,
+/* ─── shared style tokens ─── */
+const T = {
   tag: {
     fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.08em',
     textTransform: 'uppercase' as const, padding: '0.3rem 0.65rem', borderRadius: '3px',
     background: 'var(--surface-2)', border: '1px solid var(--border)', color: 'var(--text-muted)',
   } as React.CSSProperties,
-  tagHighlight: {
+  tagH: {
     fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.08em',
     textTransform: 'uppercase' as const, padding: '0.3rem 0.65rem', borderRadius: '3px',
     border: '1px solid var(--accent-border)', color: 'var(--accent)', background: 'var(--accent-dim)',
   } as React.CSSProperties,
+  divider: { height: '1px', background: 'var(--border)', maxWidth: '1100px', margin: '0 auto' } as React.CSSProperties,
 };
 
-function Home() {
+function SectionHeader({ num, title }: { num: string; title: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
+      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--accent)', letterSpacing: '0.1em' }}>{num}</span>
+      <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.25rem)', fontWeight: 700, letterSpacing: '-0.02em' }}>{title}</h2>
+      <div style={{ flex: 1, height: '1px', background: 'var(--border)', minWidth: '20px' }} />
+    </div>
+  );
+}
+
+export default function Home() {
   const fadeRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+      { threshold: 0.08 }
+    );
     fadeRefs.current.forEach(el => el && observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
-  const addFadeRef = (el: HTMLElement | null) => {
+  const ref = (el: HTMLElement | null) => {
     if (el && !fadeRefs.current.includes(el)) fadeRefs.current.push(el);
   };
 
-  return (
-    <div style={{ background: 'var(--bg)', minHeight: '100vh', color: 'var(--text)' }}>
+  const sectionStyle: React.CSSProperties = {
+    padding: 'clamp(3rem, 8vw, 6rem) clamp(1.25rem, 5vw, 2.5rem)',
+    maxWidth: '1100px', margin: '0 auto',
+  };
 
-      {/* HERO */}
+  return (
+    <div style={{ background: 'var(--bg)', color: 'var(--text)' }}>
+
+      {/* ── HERO ── */}
       <div id="hero" style={{
         minHeight: '100vh', display: 'flex', alignItems: 'center',
-        padding: '6rem 2.5rem 4rem', maxWidth: '1100px', margin: '0 auto',
+        padding: 'clamp(5rem, 12vw, 7rem) clamp(1.25rem, 5vw, 2.5rem) clamp(3rem, 6vw, 4rem)',
+        maxWidth: '1100px', margin: '0 auto',
       }}>
-        <div style={{ maxWidth: '820px' }}>
+        <div style={{ maxWidth: '820px', width: '100%' }}>
+
           <div className="hero-tag" style={{
             display: 'inline-flex', alignItems: 'center',
             fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
             letterSpacing: '0.12em', textTransform: 'uppercase',
-            color: 'var(--accent)', marginBottom: '1.75rem',
-          }}>
-            Available for Full-time Roles
-          </div>
+            color: 'var(--accent)', marginBottom: '1.5rem',
+          }}>Available for Full-time Roles</div>
 
           <h1 style={{
-            fontSize: 'clamp(3rem, 7vw, 5.5rem)', fontWeight: 800,
-            lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: '0.5rem',
+            fontSize: 'clamp(2.4rem, 8vw, 5.5rem)', fontWeight: 800,
+            lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '0.5rem',
           }}>
             Md Enayat Ansari<br />
             <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontWeight: 400, color: 'var(--accent)' }}>
@@ -80,57 +75,51 @@ function Home() {
           </h1>
 
           <p style={{
-            fontSize: 'clamp(1rem, 2vw, 1.2rem)', color: 'var(--text-muted)',
-            maxWidth: '560px', margin: '1.75rem 0 2.5rem', lineHeight: 1.7, fontWeight: 400,
+            fontSize: 'clamp(0.95rem, 2.5vw, 1.2rem)', color: 'var(--text-muted)',
+            maxWidth: '560px', margin: '1.5rem 0 2rem', lineHeight: 1.7,
           }}>
             M.Tech CS graduate specializing in MERN stack and real-time distributed systems.
             I build scalable, production-ready applications — from live chat engines to billing platforms —
             with a focus on performance and reliability.
           </p>
 
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <a href="mailto:enayatansari33@gmail.com" style={{
-              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-              background: 'var(--accent)', color: '#0a0a0a',
-              fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: 500,
-              letterSpacing: '0.08em', textTransform: 'uppercase',
-              padding: '0.85rem 1.75rem', borderRadius: '4px', textDecoration: 'none', transition: 'all 0.2s',
-            }}>Get in Touch ↗</a>
-            <a href="#projects" style={{
-              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-              background: 'transparent', color: 'var(--text)',
-              fontFamily: 'var(--font-mono)', fontSize: '0.8rem',
-              letterSpacing: '0.08em', textTransform: 'uppercase',
-              padding: '0.85rem 1.75rem', borderRadius: '4px', textDecoration: 'none',
-              border: '1px solid var(--border-hover)', transition: 'all 0.2s',
-            }}>View Projects</a>
-            <a href="https://drive.google.com/file/d/1Nx_xw8lE__-qszxkLPbB8wFByESWiNVJ/view?usp=drive_link"
-              target="_blank" rel="noreferrer" style={{
-                display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                background: 'transparent', color: 'var(--text)',
-                fontFamily: 'var(--font-mono)', fontSize: '0.8rem',
-                letterSpacing: '0.08em', textTransform: 'uppercase',
-                padding: '0.85rem 1.75rem', borderRadius: '4px', textDecoration: 'none',
-                border: '1px solid var(--border-hover)', transition: 'all 0.2s',
-              }}>Download Resume</a>
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+            {[
+              { label: 'Get in Touch ↗', href: 'mailto:enayatansari33@gmail.com', primary: true },
+              { label: 'View Projects', href: '#projects', primary: false },
+              { label: 'Download Resume', href: 'https://drive.google.com/file/d/1Nx_xw8lE__-qszxkLPbB8wFByESWiNVJ/view?usp=drive_link', primary: false },
+            ].map(btn => (
+              <a key={btn.label} href={btn.href} target={btn.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                  fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: 500,
+                  letterSpacing: '0.08em', textTransform: 'uppercase',
+                  padding: '0.8rem 1.4rem', borderRadius: '4px', textDecoration: 'none', transition: 'all 0.2s',
+                  ...(btn.primary
+                    ? { background: 'var(--accent)', color: '#0a0a0a' }
+                    : { background: 'transparent', color: 'var(--text)', border: '1px solid var(--border-hover)' }),
+                }}>
+                {btn.label}
+              </a>
+            ))}
           </div>
 
-          <div style={{
-            display: 'flex', gap: '3rem', marginTop: '4rem',
-            paddingTop: '2.5rem', borderTop: '1px solid var(--border)',
+          <div className="hero-stats" style={{
+            display: 'flex', gap: '2.5rem', marginTop: '3.5rem',
+            paddingTop: '2rem', borderTop: '1px solid var(--border)',
           }}>
             {[
               { num: '6+', label: 'Deployed Projects' },
               { num: '1', label: 'Freelance Client' },
               { num: 'M.Tech', label: 'CS — RGPV' },
               { num: '2+', label: 'Years Building' },
-            ].map(stat => (
-              <div key={stat.label}>
-                <div style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text)' }}>
-                  {stat.num.replace(/[+]/, '')}<span style={{ color: 'var(--accent)' }}>{stat.num.includes('+') ? '+' : ''}</span>
+            ].map(s => (
+              <div key={s.label}>
+                <div style={{ fontSize: 'clamp(1.4rem, 4vw, 2rem)', fontWeight: 800, letterSpacing: '-0.02em' }}>
+                  {s.num.replace('+', '')}<span style={{ color: 'var(--accent)' }}>{s.num.includes('+') ? '+' : ''}</span>
                 </div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-dim)', marginTop: '0.25rem' }}>
-                  {stat.label}
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-dim)', marginTop: '0.2rem' }}>
+                  {s.label}
                 </div>
               </div>
             ))}
@@ -138,169 +127,157 @@ function Home() {
         </div>
       </div>
 
-      <div style={S.divider} />
+      <div style={T.divider} />
 
-      {/* EXPERIENCE */}
-      <section ref={addFadeRef} id="experience" className="fade-in" style={S.section}>
-        <div style={S.sectionHeader}>
-          <span style={S.sectionNum}>01</span>
-          <h2 style={S.sectionTitle}>Experience</h2>
-          <div style={S.sectionLine} />
-        </div>
+      {/* ── EXPERIENCE ── */}
+      <section ref={ref} id="experience" className="fade-in" style={sectionStyle}>
+        <SectionHeader num="01" title="Experience" />
 
-        {/* Freelance */}
+        {/* Freelance card */}
         <div style={{
           background: 'var(--surface)', border: '1px solid rgba(0,229,160,0.25)',
-          borderRadius: '8px', padding: '2rem 2.5rem', marginBottom: '1.5rem',
+          borderRadius: '8px', padding: 'clamp(1.25rem, 4vw, 2.5rem)', marginBottom: '1.5rem',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
             <div>
-              <div style={{ fontSize: '1.1rem', fontWeight: 600 }}>Freelance Full Stack Developer</div>
+              <div style={{ fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)', fontWeight: 600 }}>Freelance Full Stack Developer</div>
               <div style={{ color: 'var(--accent)', fontSize: '0.9rem', marginTop: '0.2rem' }}>Independent Client — Retail Business</div>
             </div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.08em', color: 'var(--text-dim)', whiteSpace: 'nowrap' }}>Jan 2025 — Mar 2025</div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)', whiteSpace: 'nowrap' }}>Jan 2025 — Mar 2025</div>
           </div>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '1rem' }}>
-            Contracted to build a production-grade, GST-compliant billing and invoice management system from scratch for a local retail business. Delivered a complete MERN stack application with multi-user support and real-time reporting.
+            Contracted to build a production-grade, GST-compliant billing and invoice management system. Delivered a complete MERN stack application with multi-user support and real-time reporting.
           </p>
           <ul style={{ listStyle: 'none', marginBottom: '1rem' }}>
             {[
-              'Engineered end-to-end GST invoice generation with automated tax calculation (CGST/SGST/IGST), reducing billing errors to near-zero',
-              'Built role-based access control (RBAC) supporting Admin and Staff roles with JWT authentication and refresh-token rotation',
-              'Implemented real-time inventory tracking and low-stock alerts using WebSocket events',
-              'Delivered monthly sales analytics dashboard with revenue summaries and exportable reports',
-              'Deployed on Vercel (frontend), Railway (backend), and MongoDB Atlas — achieving 99.9% uptime',
+              'Engineered GST invoice generation with automated tax calculation (CGST/SGST/IGST), reducing billing errors to near-zero',
+              'Built role-based access control (RBAC) with JWT authentication and refresh-token rotation',
+              'Real-time inventory tracking and low-stock alerts via WebSocket events',
+              'Monthly sales analytics dashboard with revenue summaries and exportable reports',
+              'Deployed on Vercel, Railway, and MongoDB Atlas — achieving 99.9% uptime',
             ].map((item, i) => (
               <li key={i} style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.7, paddingLeft: '1.25rem', position: 'relative', marginBottom: '0.3rem' }}>
-                <span style={{ position: 'absolute', left: 0, color: 'var(--accent)', fontSize: '0.8rem' }}>→</span>
-                {item}
+                <span style={{ position: 'absolute', left: 0, color: 'var(--accent)' }}>→</span>{item}
               </li>
             ))}
           </ul>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
             {['MongoDB', 'Express.js', 'React.js', 'Node.js', 'JWT Auth', 'GST Compliance', 'Vercel', 'Railway'].map(t => (
-              <span key={t} style={S.tag}>{t}</span>
+              <span key={t} style={T.tag}>{t}</span>
             ))}
           </div>
         </div>
 
-        {/* Thesis */}
-        <div ref={addFadeRef} className="thesis-card fade-in" style={{
+        {/* Thesis card */}
+        <div ref={ref} className="thesis-card fade-in" style={{
           background: 'linear-gradient(135deg, var(--surface) 0%, #0f1f18 100%)',
-          border: '1px solid var(--accent-border)', borderRadius: '12px', padding: '3rem',
+          border: '1px solid var(--accent-border)', borderRadius: '12px',
+          padding: 'clamp(1.5rem, 5vw, 3rem)',
         }}>
           <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+            display: 'inline-flex', alignItems: 'center',
             fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.15em',
             textTransform: 'uppercase', color: 'var(--accent)', background: 'var(--accent-dim)',
             border: '1px solid var(--accent-border)', padding: '0.35rem 0.75rem', borderRadius: '3px', marginBottom: '1.5rem',
           }}>⬡ M.Tech Research — RGPV University</div>
 
-          <h3 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, marginBottom: '1rem' }}>
-            Latency vs Throughput in Horizontally Scaled<br />Real-Time Communication Architectures
+          <h3 style={{ fontSize: 'clamp(1.2rem, 3.5vw, 2.1rem)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.25, marginBottom: '1rem' }}>
+            Latency vs Throughput in Horizontally Scaled Real-Time Communication Architectures
           </h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: 1.8, maxWidth: '600px', marginBottom: '2rem' }}>
-            Conducted a rigorous comparative analysis of Redis Pub/Sub against direct WebSocket broadcasting in multi-node Node.js clusters. Measured and benchmarked message latency, throughput, and failure modes under concurrency stress.
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.8, maxWidth: '600px', marginBottom: '2rem' }}>
+            Comparative analysis of Redis Pub/Sub against direct WebSocket broadcasting in multi-node Node.js clusters. Benchmarked message latency, throughput, and failure modes under concurrency stress.
           </p>
 
-          <div style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap', padding: '1.5rem 0', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', marginBottom: '2rem' }}>
+          <div className="thesis-metrics" style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap', padding: '1.5rem 0', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', marginBottom: '1.5rem' }}>
             {[
-              { val: '~40%', label: 'Latency Reduction (Redis vs Direct)' },
-              { val: '10K+', label: 'Concurrent Connections Benchmarked' },
-              { val: '3', label: 'Node Cluster Configurations Tested' },
+              { val: '~40%', label: 'Latency Reduction' },
+              { val: '10K+', label: 'Concurrent Connections' },
+              { val: '3', label: 'Cluster Configs Tested' },
             ].map(m => (
               <div key={m.label}>
-                <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent)', letterSpacing: '-0.02em' }}>{m.val}</div>
+                <div style={{ fontSize: 'clamp(1.3rem, 4vw, 1.6rem)', fontWeight: 800, color: 'var(--accent)', letterSpacing: '-0.02em' }}>{m.val}</div>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-dim)', marginTop: '0.2rem' }}>{m.label}</div>
               </div>
             ))}
           </div>
 
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            {['Redis Pub/Sub', 'WebSockets'].map(t => <span key={t} style={S.tagHighlight}>{t}</span>)}
-            {['Node.js Clustering', 'Socket.IO', 'Docker', 'System Design', 'Distributed Systems'].map(t => <span key={t} style={S.tag}>{t}</span>)}
+            {['Redis Pub/Sub', 'WebSockets'].map(t => <span key={t} style={T.tagH}>{t}</span>)}
+            {['Node.js Clustering', 'Socket.IO', 'Docker', 'System Design', 'Distributed Systems'].map(t => <span key={t} style={T.tag}>{t}</span>)}
           </div>
         </div>
       </section>
 
-      <div style={S.divider} />
+      <div style={T.divider} />
 
-      {/* PROJECTS */}
-      <section ref={addFadeRef} id="projects" className="fade-in" style={S.section}>
-        <div style={S.sectionHeader}>
-          <span style={S.sectionNum}>02</span>
-          <h2 style={S.sectionTitle}>Projects</h2>
-          <div style={S.sectionLine} />
-        </div>
+      {/* ── PROJECTS ── */}
+      <section ref={ref} id="projects" className="fade-in" style={sectionStyle}>
+        <SectionHeader num="02" title="Projects" />
 
-        <div style={{ display: 'grid', gap: '1.5rem' }}>
+        <div style={{ display: 'grid', gap: '1.25rem' }}>
           {[
             {
               featured: true,
               category: 'Real-Time Systems / Distributed',
               title: 'QuickChat — Scalable Chat Engine',
-              desc: 'Production-grade real-time chat application built with horizontal scalability in mind. Implemented Redis Pub/Sub to synchronize message broadcasting across multiple Node.js instances — direct application of M.Tech thesis research.',
-              tags: [{ label: 'Redis Pub/Sub', h: true }, { label: 'Socket.IO', h: true }, { label: 'MongoDB' }, { label: 'Express.js' }, { label: 'React.js' }, { label: 'Docker' }],
-              links: [{ label: '↗ Live Demo', href: 'https://quick-chat-eight-eta.vercel.app/', type: 'live' }, { label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/Quickchat', type: 'github' }],
+              desc: 'Production-grade real-time chat with Redis Pub/Sub synchronizing message broadcasting across multiple Node.js instances. Supports persistent chat history, rooms, and real-time user presence.',
+              tags: [{ l: 'Redis Pub/Sub', h: true }, { l: 'Socket.IO', h: true }, { l: 'MongoDB' }, { l: 'Express.js' }, { l: 'React.js' }, { l: 'Docker' }],
+              links: [{ label: '↗ Live Demo', href: 'https://quick-chat-eight-eta.vercel.app/', live: true }, { label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/Quickchat', live: false }],
             },
             {
               featured: true,
               category: 'Backend Performance / Data Systems',
               title: 'Crypto Price Monitor',
-              desc: 'High-frequency real-time monitoring system tracking live cryptocurrency prices. Optimized database read/write throughput using PostgreSQL indexing and a Redis caching layer — reducing query latency by ~60%.',
-              tags: [{ label: 'PostgreSQL', h: true }, { label: 'Redis Cache', h: true }, { label: 'TypeScript' }, { label: 'Node.js' }, { label: 'WebSockets' }],
-              links: [{ label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/crypto-price-monitor', type: 'github' }],
+              desc: 'High-frequency real-time monitoring system tracking live cryptocurrency prices. Optimized throughput with PostgreSQL indexing and a Redis caching layer — reducing query latency by ~60%.',
+              tags: [{ l: 'PostgreSQL', h: true }, { l: 'Redis Cache', h: true }, { l: 'TypeScript' }, { l: 'Node.js' }, { l: 'WebSockets' }],
+              links: [{ label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/crypto-price-monitor', live: false }],
             },
             {
               featured: false,
               category: 'Real-Time / Peer-to-Peer',
               title: 'WebRTC Video Calling App',
-              desc: 'Browser-native peer-to-peer video calling using WebRTC with a Node.js signaling server. Implemented ICE candidate exchange, STUN/TURN negotiation, and fallback reconnection logic. Supports screen sharing and audio/video toggle mid-call.',
-              tags: [{ label: 'WebRTC', h: true }, { label: 'Socket.IO' }, { label: 'Node.js' }, { label: 'React.js' }],
-              links: [{ label: '⌥ GitHub', href: 'https://github.com/enayat-enoo', type: 'github' }],
+              desc: 'Browser-native P2P video calling with ICE candidate exchange, STUN/TURN negotiation, and fallback reconnection. Supports screen sharing and audio/video toggle mid-call.',
+              tags: [{ l: 'WebRTC', h: true }, { l: 'Socket.IO' }, { l: 'Node.js' }, { l: 'React.js' }],
+              links: [{ label: '⌥ GitHub', href: 'https://github.com/enayat-enoo', live: false }],
             },
             {
               featured: false,
               category: 'Full Stack Application',
               title: 'BookIt — Booking Platform',
-              desc: 'Full-stack appointment and resource booking system with a custom availability engine, conflict detection, and JWT-secured authentication. Features slot management, email confirmation logic, and Redux-powered state across multi-step booking flows.',
-              tags: [{ label: 'React.js' }, { label: 'Redux' }, { label: 'Express.js' }, { label: 'MongoDB' }, { label: 'JWT' }],
-              links: [{ label: '↗ Live Demo', href: 'https://book-it-beryl.vercel.app/', type: 'live' }, { label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/BookIt', type: 'github' }],
+              desc: 'Full-stack booking system with availability engine, conflict detection, JWT auth, slot management, and Redux-powered multi-step booking flows.',
+              tags: [{ l: 'React.js' }, { l: 'Redux' }, { l: 'Express.js' }, { l: 'MongoDB' }, { l: 'JWT' }],
+              links: [{ label: '↗ Live Demo', href: 'https://book-it-beryl.vercel.app/', live: true }, { label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/BookIt', live: false }],
             },
             {
               featured: false,
               category: 'Frontend Architecture',
               title: 'Ecom-Cart — E-Commerce Frontend',
-              desc: 'Feature-rich e-commerce frontend with persistent cart state, multi-filter product discovery, optimistic UI updates, and lazy-loaded image rendering. State managed via Zustand for minimal re-renders.',
-              tags: [{ label: 'React.js' }, { label: 'Zustand' }, { label: 'Tailwind CSS' }, { label: 'REST API' }],
-              links: [{ label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/E-com-cart', type: 'github' }],
+              desc: 'E-commerce frontend with persistent cart, multi-filter product discovery, optimistic UI updates, and lazy-loaded images. State managed via Zustand.',
+              tags: [{ l: 'React.js' }, { l: 'Zustand' }, { l: 'Tailwind CSS' }, { l: 'REST API' }],
+              links: [{ label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/E-com-cart', live: false }],
             },
-          ].map((project) => (
-            <div
-              key={project.title}
-              className={`project-card${project.featured ? ' featured' : ''}`}
-              style={{
-                background: 'var(--surface)',
-                border: `1px solid ${project.featured ? 'rgba(0,229,160,0.2)' : 'var(--border)'}`,
-                borderRadius: '8px', padding: '2rem 2.5rem', transition: 'all 0.25s',
-              }}
-            >
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '0.5rem' }}>
-                {project.category}
+          ].map(p => (
+            <div key={p.title} className={`project-card${p.featured ? ' featured' : ''}`} style={{
+              background: 'var(--surface)',
+              border: `1px solid ${p.featured ? 'rgba(0,229,160,0.2)' : 'var(--border)'}`,
+              borderRadius: '8px', padding: 'clamp(1.25rem, 4vw, 2rem)', transition: 'all 0.25s',
+            }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '0.4rem' }}>
+                {p.category}
               </div>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '0.75rem', letterSpacing: '-0.01em' }}>{project.title}</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.75, marginBottom: '1.25rem' }}>{project.desc}</p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.25rem' }}>
-                {project.tags.map(t => <span key={t.label} style={t.h ? S.tagHighlight : S.tag}>{t.label}</span>)}
+              <h3 style={{ fontSize: 'clamp(1rem, 3vw, 1.3rem)', fontWeight: 700, marginBottom: '0.6rem', letterSpacing: '-0.01em' }}>{p.title}</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.75, marginBottom: '1rem' }}>{p.desc}</p>
+              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+                {p.tags.map(t => <span key={t.l} style={t.h ? T.tagH : T.tag}>{t.l}</span>)}
               </div>
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
-                {project.links.map(link => (
+              <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+                {p.links.map(link => (
                   <a key={link.label} href={link.href} target="_blank" rel="noreferrer" style={{
-                    display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
+                    display: 'inline-flex', alignItems: 'center',
                     fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.08em',
                     textTransform: 'uppercase', textDecoration: 'none', padding: '0.4rem 0.85rem',
                     borderRadius: '3px', transition: 'all 0.2s',
-                    ...(link.type === 'live'
+                    ...(link.live
                       ? { background: 'var(--accent)', color: '#0a0a0a' }
                       : { border: '1px solid var(--border-hover)', color: 'var(--text-muted)' }),
                   }}>{link.label}</a>
@@ -311,38 +288,28 @@ function Home() {
         </div>
       </section>
 
-      <div style={S.divider} />
+      <div style={T.divider} />
 
-      {/* SKILLS */}
-      <section ref={addFadeRef} id="skills" className="fade-in" style={S.section}>
-        <div style={S.sectionHeader}>
-          <span style={S.sectionNum}>03</span>
-          <h2 style={S.sectionTitle}>Skills</h2>
-          <div style={S.sectionLine} />
-        </div>
+      {/* ── SKILLS ── */}
+      <section ref={ref} id="skills" className="fade-in" style={sectionStyle}>
+        <SectionHeader num="03" title="Skills" />
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
           {[
             { title: 'Frontend', skills: [{ l: 'React.js', h: true }, { l: 'JavaScript (ES6+)' }, { l: 'Redux / Zustand' }, { l: 'Tailwind CSS' }, { l: 'HTML5 / CSS3' }, { l: 'REST APIs' }] },
-            { title: 'Backend', skills: [{ l: 'Node.js', h: true }, { l: 'Express.js', h: true }, { l: 'Socket.IO' }, { l: 'WebSockets' }, { l: 'WebRTC' }, { l: 'JWT Auth' }, { l: 'REST Design' }] },
+            { title: 'Backend', skills: [{ l: 'Node.js', h: true }, { l: 'Express.js', h: true }, { l: 'Socket.IO' }, { l: 'WebSockets' }, { l: 'WebRTC' }, { l: 'JWT Auth' }] },
             { title: 'Databases & Caching', skills: [{ l: 'MongoDB', h: true }, { l: 'Redis Pub/Sub', h: true }, { l: 'PostgreSQL' }, { l: 'Mongoose' }, { l: 'Redis Cache' }] },
             { title: 'DevOps & Tools', skills: [{ l: 'Docker', h: true }, { l: 'Vercel' }, { l: 'Railway' }, { l: 'MongoDB Atlas' }, { l: 'Git / GitHub' }, { l: 'Linux CLI' }] },
-            { title: 'Architecture & Concepts', skills: [{ l: 'Distributed Systems', h: true }, { l: 'System Design' }, { l: 'Horizontal Scaling' }, { l: 'Pub/Sub Patterns' }, { l: 'RBAC' }, { l: 'MVC' }] },
-            { title: 'Education', skills: [{ l: 'M.Tech — Computer Science', h: true }, { l: 'RGPV University, Bhopal' }, { l: 'DSA' }, { l: 'DBMS' }, { l: 'OS Concepts' }] },
+            { title: 'Architecture', skills: [{ l: 'Distributed Systems', h: true }, { l: 'System Design' }, { l: 'Horizontal Scaling' }, { l: 'Pub/Sub Patterns' }, { l: 'RBAC' }, { l: 'MVC' }] },
+            { title: 'Education', skills: [{ l: 'M.Tech — CS', h: true }, { l: 'RGPV University, Bhopal' }, { l: 'DSA' }, { l: 'DBMS' }, { l: 'OS Concepts' }] },
           ].map(group => (
-            <div key={group.title} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '8px', padding: '1.75rem' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '1.25rem' }}>
+            <div key={group.title} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '8px', padding: '1.5rem' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '1rem' }}>
                 {group.title}
               </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
                 {group.skills.map(s => (
-                  <span key={s.l} style={{
-                    fontFamily: 'var(--font-mono)', fontSize: '0.72rem', padding: '0.3rem 0.65rem',
-                    borderRadius: '3px', letterSpacing: '0.04em',
-                    ...(s.h
-                      ? { border: '1px solid var(--accent-border)', color: 'var(--accent)', background: 'var(--accent-dim)' }
-                      : { background: 'var(--surface-2)', border: '1px solid var(--border)', color: 'var(--text-muted)' }),
-                  }}>{s.l}</span>
+                  <span key={s.l} style={s.h ? T.tagH : T.tag}>{s.l}</span>
                 ))}
               </div>
             </div>
@@ -350,38 +317,36 @@ function Home() {
         </div>
       </section>
 
-      <div style={S.divider} />
+      <div style={T.divider} />
 
-      {/* CONTACT */}
-      <section ref={addFadeRef} id="contact" className="fade-in" style={S.section}>
-        <div style={S.sectionHeader}>
-          <span style={S.sectionNum}>04</span>
-          <h2 style={S.sectionTitle}>Contact</h2>
-          <div style={S.sectionLine} />
-        </div>
+      {/* ── CONTACT ── */}
+      <section ref={ref} id="contact" className="fade-in" style={sectionStyle}>
+        <SectionHeader num="04" title="Contact" />
 
-        <div style={{
+        <div className="contact-grid" style={{
           background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '12px',
-          padding: '3.5rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center',
+          padding: 'clamp(1.5rem, 5vw, 3.5rem)',
+          display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center',
         }}>
           <div>
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: '1rem' }}>
+            <h2 style={{ fontSize: 'clamp(1.75rem, 5vw, 3rem)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: '1rem' }}>
               Let's build<br />
               <em style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--accent)' }}>something real.</em>
             </h2>
-            <p style={{ color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '2rem' }}>
-              I'm actively looking for full-time Full Stack Developer roles — MERN stack, backend-heavy, or real-time systems. Based in Bhopal, open to Noida, Pune, Bengaluru, or remote.
+            <p style={{ color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '1.75rem', fontSize: '0.95rem' }}>
+              Actively looking for full-time Full Stack Developer roles — MERN stack, backend-heavy, or real-time systems. Based in Bhopal, open to Noida, Pune, Bengaluru, or remote.
             </p>
             <a href="mailto:enayatansari33@gmail.com" style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
               background: 'var(--accent)', color: '#0a0a0a',
-              fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: 500,
+              fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: 500,
               letterSpacing: '0.08em', textTransform: 'uppercase',
-              padding: '0.85rem 1.75rem', borderRadius: '4px', textDecoration: 'none',
+              padding: '0.8rem 1.4rem', borderRadius: '4px', textDecoration: 'none',
+              wordBreak: 'break-all',
             }}>enayatansari33@gmail.com ↗</a>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
             {[
               { icon: '✉', label: 'enayatansari33@gmail.com', href: 'mailto:enayatansari33@gmail.com' },
               { icon: '⌥', label: 'github.com/enayat-enoo', href: 'https://github.com/enayat-enoo' },
@@ -390,25 +355,25 @@ function Home() {
               { icon: '☎', label: '+91 90749 32835', href: 'tel:+919074932835' },
             ].map(link => (
               <a key={link.label} href={link.href} target="_blank" rel="noreferrer" style={{
-                display: 'flex', alignItems: 'center', gap: '1rem',
-                fontFamily: 'var(--font-mono)', fontSize: '0.8rem', letterSpacing: '0.06em',
+                display: 'flex', alignItems: 'center', gap: '0.75rem',
+                fontFamily: 'var(--font-mono)', fontSize: '0.75rem', letterSpacing: '0.06em',
                 color: 'var(--text-muted)', textDecoration: 'none',
-                padding: '0.85rem 1.25rem', background: 'var(--surface-2)',
+                padding: '0.75rem 1rem', background: 'var(--surface-2)',
                 border: '1px solid var(--border)', borderRadius: '6px', transition: 'all 0.2s',
+                wordBreak: 'break-all',
               }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent-border)'; e.currentTarget.style.color = 'var(--accent)'; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-muted)'; }}
               >
-                <span style={{ width: '32px', textAlign: 'center', fontSize: '0.85rem' }}>{link.icon}</span>
-                <span style={{ flex: 1 }}>{link.label}</span>
-                <span style={{ color: 'var(--text-dim)' }}>↗</span>
+                <span style={{ width: '28px', textAlign: 'center', flexShrink: 0 }}>{link.icon}</span>
+                <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis' }}>{link.label}</span>
+                <span style={{ color: 'var(--text-dim)', flexShrink: 0 }}>↗</span>
               </a>
             ))}
           </div>
         </div>
       </section>
+
     </div>
   );
 }
-
-export default Home;

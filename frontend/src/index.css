@@ -18,6 +18,7 @@
   --font-mono: 'DM Mono', monospace;
 }
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -50,8 +51,7 @@ body {
 .project-card::before {
   content: '';
   position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-  background: transparent;
-  transition: background 0.2s;
+  background: transparent; transition: background 0.2s;
 }
 .project-card:hover::before { background: var(--accent); }
 .project-card.featured::before { background: var(--accent); }
@@ -63,4 +63,16 @@ body {
   width: 300px; height: 300px;
   background: radial-gradient(circle, rgba(0,229,160,0.06) 0%, transparent 70%);
   pointer-events: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav-desktop { display: none !important; }
+  .nav-hamburger { display: flex !important; }
+
+  .hero-stats { flex-wrap: wrap; gap: 1.5rem !important; }
+
+  .contact-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+
+  .thesis-metrics { flex-direction: column; gap: 1.25rem !important; }
 }
