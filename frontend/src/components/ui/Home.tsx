@@ -222,7 +222,7 @@ export default function Home() {
               title: 'QuickChat — Scalable Chat Engine',
               desc: 'Production-grade real-time chat with Redis Pub/Sub synchronizing message broadcasting across multiple Node.js instances. Supports persistent chat history, rooms, and real-time user presence.',
               tags: [{ l: 'Redis Pub/Sub', h: true }, { l: 'Socket.IO', h: true }, { l: 'MongoDB' }, { l: 'Express.js' }, { l: 'React.js' }, { l: 'Docker' }],
-              links: [{ label: '↗ Live Demo', href: 'https://quick-chat-eight-eta.vercel.app/', live: true }, { label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/Quickchat', live: false }],
+              links: [{ label: '↗ Live Demo', href: 'https://quick-chat-eight-eta.vercel.app/', live: true }, { label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/Quickchat', live: true }],
             },
             {
               featured: true,
@@ -230,7 +230,7 @@ export default function Home() {
               title: 'Crypto Price Monitor',
               desc: 'High-frequency real-time monitoring system tracking live cryptocurrency prices. Optimized throughput with PostgreSQL indexing and a Redis caching layer — reducing query latency by ~60%.',
               tags: [{ l: 'PostgreSQL', h: true }, { l: 'Redis Cache', h: true }, { l: 'TypeScript' }, { l: 'Node.js' }, { l: 'WebSockets' }],
-              links: [{ label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/crypto-price-monitor', live: false }],
+              links: [{ label: '↗ Live Demo', href: 'https://crypto-monitor-dun.vercel.app/', live: true },{ label: '⌥ GitHub', href: 'https://github.com/enayat-enoo/crypto-price-monitor', live: true }],
             },
             {
               featured: false,
