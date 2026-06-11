@@ -11,7 +11,7 @@ function Footer() {
         © 2026 <span style={{ color: 'var(--accent)' }}>Md Enayat Ansari</span> — Built with React.js & Vite
       </div>
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.08em', color: 'var(--text-dim)' }}>
-        Bhopal, India · Open to Relocation
+        Rourkela, Odisha · Open to Relocation
       </div>
     </footer>
   );

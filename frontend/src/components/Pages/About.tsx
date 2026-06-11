@@ -9,7 +9,7 @@ function About() {
           The Engineer
         </h1>
         <p className="text-2xl text-[#454545] leading-relaxed max-w-3xl">
-          Full Stack Developer specializing in **distributed systems** and **real-time architectures**. I build applications where performance meets reliability.
+          Full Stack Developer currently working on enterprise applications using PERN stack, real-time systems, and cloud services.
         </p>
       </section>
 
@@ -61,7 +61,7 @@ function About() {
       <section className="bg-white/10 border border-white/20 p-12 rounded-[40px] text-center space-y-6">
         <h2 className="text-3xl font-bold">Solving for Scale</h2>
         <p className="text-lg text-[#454545] max-w-2xl mx-auto">
-          I am currently focused on building robust systems that handle real-time data flow. My goal is to work on infrastructure that impacts millions of users.
+          Currently working on production-grade enterprise systems, focused on performance, scalability, and clean architecture.
         </p>
       </section>
     </div>
