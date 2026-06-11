@@ -128,7 +128,7 @@ export default function Home() {
               marginBottom: "1.5rem",
             }}
           >
-            Junior Web Developer @ Venturesathi(PERN)
+            Full Stack Developer @ Venturesathi
           </div>
 
           <h1
